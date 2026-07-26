@@ -4,6 +4,9 @@ import com.basic_login_system.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -14,8 +17,13 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public void addUser(User user){
+    public boolean addUser(User user){
+        List<User> userList = userRepo.getAllUsers();
+        if(userList.contains(user)){
+            return false;
+        }
         userRepo.addUser(user);
+        return true;
     }
     public void login(User user){}
 }
